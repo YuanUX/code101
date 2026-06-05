@@ -57,7 +57,6 @@
             padding: 1.75rem 0;
             margin-bottom: 1rem;
             z-index: 10;
-            border-bottom: 1px solid #ececea;
         }
 
         .search-inner {
@@ -117,16 +116,6 @@
 
         .search-clear:hover {
             color: black;
-        }
-
-        /* List Mode View Indicator Tag */
-        .view-indicator {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: #9a9a94;
-            margin-bottom: 2rem;
-            font-weight: 500;
         }
 
         /* Traditional table layout */
@@ -462,8 +451,6 @@
         <button id="searchClear" class="search-clear hidden">✕</button>
       </div>
     </div>
-
-    <div id="viewIndicator" class="view-indicator">Showing Simple Core List</div>
 
     <div id="glossaryOutput"></div>
     <div id="noResultsMessage" class="no-results hidden">No matching commands discovered in comprehensive library.</div>
@@ -822,7 +809,6 @@
 
         const outputDiv = document.getElementById('glossaryOutput');
         const searchInput = document.getElementById('glossarySearch');
-        const viewIndicator = document.getElementById('viewIndicator');
         const noResultsMessage = document.getElementById('noResultsMessage');
 
         // Clipboard Copy Handler Function
@@ -867,12 +853,6 @@
         function renderGlossary(searchQuery = "") {
             const isSearching = searchQuery.length > 0;
             outputDiv.innerHTML = "";
-            
-            if (isSearching) {
-                viewIndicator.textContent = `Searching Global Command Library for "${searchQuery}"`;
-            } else {
-                viewIndicator.textContent = "Showing Simple Core List";
-            }
 
             // Render recent commands
             const recent = JSON.parse(localStorage.getItem('recentCommands') || '[]');
