@@ -147,6 +147,11 @@
             }
         }
 
+        /* Quiet re-renders (e.g. after copying) skip the entrance animation */
+        #glossaryOutput.no-anim .glossary-section {
+            animation: none;
+        }
+
         .glossary-section:first-of-type {
             margin-top: 1rem;
         }
@@ -831,10 +836,12 @@
                 badge.classList.add('copied');
                 badge.textContent = "copied!";
                 trackRecent(commandText);
-                
+
+                // Let "copied!" finish showing, then quietly refresh Recently Used
                 setTimeout(() => {
                     badge.classList.remove('copied');
                     badge.textContent = commandText;
+                    renderGlossary(searchInput.value.toLowerCase().trim(), false);
                 }, 800);
             }).catch(err => {
                 console.error('Failed to copy to clipboard: ', err);
@@ -847,11 +854,11 @@
             recent.unshift(cmd);
             if (recent.length > 5) recent = recent.slice(0, 5);
             localStorage.setItem('recentCommands', JSON.stringify(recent));
-            renderGlossary(searchInput.value.toLowerCase().trim());
         }
 
-        function renderGlossary(searchQuery = "") {
+        function renderGlossary(searchQuery = "", animate = true) {
             const isSearching = searchQuery.length > 0;
+            outputDiv.classList.toggle('no-anim', !animate);
             outputDiv.innerHTML = "";
 
             // Render recent commands
