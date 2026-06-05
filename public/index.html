@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal Glossary for Designers</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: white;
+            color: black;
+            padding: 2rem 2rem 5rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Minimal Sticky Search Box Container */
+        .search-container {
+            position: sticky;
+            top: 0;
+            background-color: white;
+            padding: 2rem 0;
+            margin-bottom: 1rem;
+            z-index: 10;
+            border-bottom: 1px solid #eee;
+        }
+
+        .search-inner {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0;
+            width: 1.1rem;
+            height: 1.1rem;
+            color: #999;
+            flex-shrink: 0;
+        }
+
+        .search-input {
+            width: 100%;
+            font-size: 1.25rem;
+            font-weight: 300;
+            padding: 0.75rem 1.8rem 0.75rem 1.6rem;
+            border: none;
+            border-bottom: 2px solid #ddd;
+            background: transparent;
+            outline: none;
+            color: black;
+            transition: border-color 0.2s ease;
+            letter-spacing: -0.01em;
+        }
+
+        .search-input:focus {
+            border-color: black;
+        }
+
+        .search-input::placeholder {
+            color: #999;
+            font-weight: 300;
+        }
+
+        .search-clear {
+            position: absolute;
+            right: 0;
+            width: 1.2rem;
+            height: 1.2rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: #999;
+            font-size: 1rem;
+            line-height: 1;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-clear:hover {
+            color: black;
+        }
+
+        /* List Mode View Indicator Tag */
+        .view-indicator {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #666;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        /* Traditional table layout */
+        .glossary-section {
+            margin-top: 4rem;
+        }
+
+        .glossary-section:first-of-type {
+            margin-top: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.75rem;
+            color: black;
+            padding-left: 0.75rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid black;
+            margin-bottom: 0;
+        }
+
+        .glossary-table {
+            display: table;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .glossary-row {
+            display: table-row;
+        }
+
+        .glossary-row:not(:last-child) .table-cell {
+            border-bottom: 1px solid #eee;
+        }
+
+        .table-cell {
+            display: table-cell;
+            padding: 1rem 0.75rem;
+            vertical-align: middle;
+        }
+
+        .cell-name {
+            width: 25%;
+        }
+
+        .cell-name .def-name {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: #999;
+        }
+
+        .cell-name .def-name span {
+            color: black;
+            font-weight: 500;
+        }
+
+        .cell-command {
+            width: 22%;
+            white-space: nowrap;
+        }
+
+        .cell-command .term-spelled {
+            font-family: ui-monospace, monospace;
+            font-size: 0.85rem;
+            font-weight: 400;
+            padding: 0.3rem 0.6rem;
+            line-height: 1.3;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.15s ease;
+            background: #f5f5f5;
+            border: 1px solid #e5e5e5;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .cell-command .term-spelled:hover {
+            background: #eee;
+            border-color: #ccc;
+        }
+
+        .cell-command .term-spelled:active {
+            transform: translateY(1px);
+        }
+
+        .cell-command .term-spelled.copied {
+            color: white;
+            background: black;
+            border-color: black;
+        }
+
+        .cell-desc {
+            width: 53%;
+        }
+
+        .cell-desc .def-desc {
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        /* Recently used section highlight */
+        .glossary-section:first-child .glossary-table .glossary-row:first-child .table-cell {
+            border-top: none;
+        }
+
+        .warning-text {
+            color: #d92727;
+            font-weight: 500;
+            display: block;
+            margin-top: 0.25rem;
+        }
+
+        .no-results {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+            margin-top: 5rem;
+            font-weight: 300;
+        }
+
+        .ask-ai-section {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .ask-ai-box {
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            background: #fafafa;
+        }
+
+        .ask-ai-header {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #999;
+            margin-bottom: 0.75rem;
+        }
+
+        .ask-ai-answer {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #333;
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .ask-ai-answer code {
+            font-family: ui-monospace, monospace;
+            font-size: 0.85rem;
+            background: #f5f5f5;
+            border: 1px solid #e5e5e5;
+            border-radius: 3px;
+            padding: 0.1rem 0.35rem;
+            cursor: pointer;
+        }
+
+        .ask-ai-answer code.copied {
+            background: black;
+            color: white;
+            border-color: black;
+        }
+
+        .ask-ai-answer pre {
+            background: #f5f5f5;
+            border: 1px solid #e5e5e5;
+            border-radius: 5px;
+            padding: 0.75rem 1rem;
+            overflow-x: auto;
+            margin: 0.5rem 0;
+        }
+
+        .ask-ai-answer pre code {
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .ask-ai-answer p {
+            margin: 0.5rem 0;
+        }
+
+        .ask-ai-answer p:first-child {
+            margin-top: 0;
+        }
+
+        .ask-ai-answer p:last-child {
+            margin-bottom: 0;
+        }
+
+        .ask-ai-answer ul, .ask-ai-answer ol {
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .ask-ai-answer strong {
+            font-weight: 600;
+        }
+
+        .ask-ai-input-row {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .ask-ai-input {
+            flex: 1;
+            font-size: 0.9rem;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .ask-ai-input:focus {
+            border-color: #999;
+        }
+
+        .ask-ai-button {
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            background: black;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .ask-ai-button:hover {
+            background: #333;
+        }
+
+        .ask-ai-button:disabled {
+            background: #ccc;
+            cursor: default;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .glossary-table, .glossary-row, .table-cell {
+                display: block;
+            }
+            .glossary-row {
+                padding: 1rem 0;
+            }
+            .glossary-row:not(:last-child) {
+                border-bottom: 1px solid #eee;
+            }
+            .table-cell {
+                padding: 0.25rem 0;
+                border: none !important;
+            }
+            .cell-name {
+                width: auto;
+            }
+            .cell-command {
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="search-container">
+      <div class="search-inner">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="glossarySearch" class="search-input" placeholder="Type to instantly unlock comprehensive command library..." autocomplete="off">
+        <button id="searchClear" class="search-clear hidden">✕</button>
+      </div>
+    </div>
+
+    <div id="viewIndicator" class="view-indicator">Showing Simple Core List</div>
+
+    <div id="glossaryOutput"></div>
+    <div id="noResultsMessage" class="no-results hidden">No matching commands discovered in comprehensive library.</div>
+
+    <div id="askAiSection" class="ask-ai-section hidden">
+      <div class="ask-ai-box">
+        <div class="ask-ai-header">Ask AI</div>
+        <div id="askAiAnswer" class="ask-ai-answer hidden"></div>
+        <div class="ask-ai-input-row">
+          <input type="text" id="askAiInput" class="ask-ai-input" placeholder="Ask about any terminal command..." autocomplete="off">
+          <button id="askAiButton" class="ask-ai-button">Ask</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+        const categories = {
+            "files": "Manipulate Files",
+            "dependencies": "Install Dependencies",
+            "server": "Dev Server & Build",
+            "git": "Version Control",
+            "shortcuts": "Shot Cuts"
+        };
+
+        const commandLibrary = [
+            // --- MANIPULATE FILES ---
+            {
+                category: "files", isSimple: true,
+                spelled: "<span>P</span>rint <span>w</span>orking <span>d</span>irectory", cmd: "pwd",
+                desc: "Prints the exact structural path of the folder you are currently looking at."
+            },
+            {
+                category: "files", isSimple: true,
+                spelled: "<span>L</span>i<span>s</span>t", cmd: "ls",
+                desc: "Displays all visible files and folders inside your current directory position."
+            },
+            {
+                category: "files", isSimple: false,
+                spelled: "<span>L</span>i<span>s</span>t all files", cmd: "ls -la",
+                desc: "A deeper list option that unhides invisible files like design system configurations or project environment settings."
+            },
+            {
+                category: "files", isSimple: false,
+                spelled: "<span>L</span>i<span>s</span>t files by time modified", cmd: "ls -lt",
+                desc: "Sorts and presents folder entries showing your newest layout saves or code revisions at the absolute top."
+            },
+            {
+                category: "files", isSimple: true,
+                spelled: "<span>C</span>hange <span>d</span>irectory", cmd: "cd [folder-name]",
+                desc: "Moves your active terminal location forward into a specific subfolder."
+            },
+            {
+                category: "files", isSimple: true,
+                spelled: "<span>.</span><span>.</span> parent directory", cmd: "cd ..",
+                desc: "Tells the shell to step backward exactly one directory tier to the enclosing folder."
+            },
+            {
+                category: "files", isSimple: true,
+                spelled: "<span>.</span><span>.</span><span>/</span> parent path traversal", cmd: ".. /",
+                desc: "Represents a relative pathway jump. Used to target, execute, or copy assets out of the parent folder and into adjacent workspace branches (e.g., cd ../components)."
+            },
+            {
+                category: "files", isSimple: false,
+                spelled: "<span>.</span><span>.</span><span>.</span> grandparent directory", cmd: "cd ...",
+                desc: "A shortcut environment alias or framework command trick to jump backward two full folders simultaneously."
+            },
+            {
+                category: "files", isSimple: false,
+                spelled: "<span>C</span>hange <span>d</span>irectory to home directory path", cmd: "cd ~",
+                desc: "Instantly flies you straight out of deep code paths directly back into your machine root User path frame."
+            },
+            {
+                category: "files", isSimple: true,
+                spelled: "<span>M</span>ake <span>d</span>irectory", cmd: "mkdir [folder-name]",
+                desc: "Generates a brand new, empty folder inside your current directory."
+            },
+            {
+                category: "files", isSimple: true,
+                spelled: "<span>T</span>ouch new file", cmd: "touch [file-name]",
+                desc: "Creates a new blank file instantly (e.g., a style sheet or Markdown note document)."
+            },
+            {
+                category: "files", isSimple: true,
+                spelled: "<span>R</span>e<span>m</span>ove file", cmd: "rm [file-name]",
+                desc: "Deletes a targeted file instantly.", isWarning: true, warningMsg: "⚠️ Caution: Skips the Trash system. Deletion is immediate and final."
+            },
+            {
+                category: "files", isSimple: false,
+                spelled: "<span>R</span>e<span>m</span>ove folder forcefully", cmd: "rm -rf [folder-name]",
+                desc: "Force-deletes an entire folder and everything inside it.", isWarning: true, warningMsg: "⚠️ Extreme Caution: No warning prompt. Cannot be undone."
+            },
+            {
+                category: "files", isSimple: false,
+                spelled: "<span>C</span>o<span>p</span>y file", cmd: "cp [source] [destination]",
+                desc: "Duplicates a code file or graphical component asset and ports it into another folder location code line."
+            },
+            {
+                category: "files", isSimple: false,
+                spelled: "<span>M</span>o<span>v</span>e file", cmd: "mv [source] [destination]",
+                desc: "Relocates or completely renames an existing directory canvas template asset file position dynamically."
+            },
+            {
+                category: "files", isSimple: true,
+                spelled: "<span>C</span>oncatenate file", cmd: "cat [file]",
+                desc: "Spits out the full contents of a text file directly into your terminal window—like peeking inside a design token file or config sheet."
+            },
+            {
+                category: "files", isSimple: false,
+                spelled: "<span>G</span>lobal search pattern", cmd: "grep [pattern] [file]",
+                desc: "Scans files line-by-line to find matching text patterns, like hunting down a specific color variable across hundreds of style sheets."
+            },
+            {
+                category: "files", isSimple: true,
+                spelled: "<span>E</span>cho output", cmd: "echo [text]",
+                desc: "Prints text back to the terminal or pipes it into a file—handy for generating config files or environment variables on the fly."
+            },
+            {
+                category: "files", isSimple: false,
+                spelled: "<span>H</span>ead of file", cmd: "head [file]",
+                desc: "Shows only the very first lines of a file so you can quickly peek at headers, imports, or front matter without opening the whole document."
+            },
+            {
+                category: "files", isSimple: false,
+                spelled: "<span>T</span>ail of file", cmd: "tail [file]",
+                desc: "Displays the last few lines of a file—perfect for checking recent log entries or the end of a long build output."
+            },
+            {
+                category: "files", isSimple: false,
+                spelled: "<span>F</span>ind files by name", cmd: "find [path] -name [pattern]",
+                desc: "Recursively searches directories for files matching a name pattern—like locating every SVG icon scattered across your project tree."
+            },
+            {
+                category: "files", isSimple: true,
+                spelled: "<span>L</span>e<span>ss</span> scroll file", cmd: "less [file]",
+                desc: "Opens a file in a scrollable view so you can browse long documents or logs line by line without flooding the terminal."
+            },
+            {
+                category: "files", isSimple: true,
+                spelled: "<span>D</span>isk <span>u</span>sage folder size", cmd: "du -sh [folder]",
+                desc: "Shows the total size of a folder in human-readable format—handy for checking if your design assets are bloating the project."
+            },
+            {
+                category: "files", isSimple: false,
+                spelled: "<span>M</span>ake <span>d</span>irectory <span>p</span>arents", cmd: "mkdir -p [path]",
+                desc: "Creates a folder and any missing parent folders along the path in one step—no more nesting errors."
+            },
+            {
+                category: "files", isSimple: false,
+                spelled: "<span>C</span>o<span>p</span>y folder recursively", cmd: "cp -r [source] [destination]",
+                desc: "Duplicates an entire folder and all its contents into a new location—like duplicating an entire component library."
+            },
+            {
+                category: "files", isSimple: false,
+                spelled: "<span>L</span>ink symbolic", cmd: "ln -s [target] [link]",
+                desc: "Creates a symbolic link that acts as a shortcut to another file or folder—useful for aliasing shared asset directories."
+            },
+
+            // --- DEPENDENCIES ---
+            {
+                category: "dependencies", isSimple: true,
+                spelled: "<span>B</span>rew install package", cmd: "brew install [package]",
+                desc: "Downloads and installs system-level software utilities, languages, or background tools directly onto your Mac environment via Homebrew."
+            },
+            {
+                category: "dependencies", isSimple: true,
+                spelled: "<span>N</span>ode <span>p</span>ackage <span>m</span>anager install", cmd: "npm install",
+                desc: "Pulls and installs all required third-party design systems, animation libraries, or framework code specified for the project."
+            },
+            {
+                category: "dependencies", isSimple: true,
+                spelled: "<span>N</span>ode <span>p</span>ackage e<span>x</span>ecute package", cmd: "npx [package]",
+                desc: "Executes a development package template directly from the registry cloud without downloading it permanently to your machine environment (e.g., initializing scaffolding frameworks)."
+            },
+            {
+                category: "dependencies", isSimple: false,
+                spelled: "<span>B</span>rew update recipes", cmd: "brew update",
+                desc: "Scans the global Homebrew registry database to discover if newer versions of your installed development tools are available."
+            },
+            {
+                category: "dependencies", isSimple: false,
+                spelled: "<span>B</span>rew upgrade packages", cmd: "brew upgrade",
+                desc: "Downloads, compiles, and installs the latest updates for all system-level tools fetched through Homebrew."
+            },
+            {
+                category: "dependencies", isSimple: false,
+                spelled: "<span>N</span>ode <span>p</span>ackage <span>m</span>anager clean install", cmd: "npm ci",
+                desc: "Wipes local node folders cleanly to completely rebuild exact production component configurations cleanly."
+            },
+            {
+                category: "dependencies", isSimple: false,
+                spelled: "<span>N</span>ode <span>p</span>ackage <span>m</span>anager update libraries", cmd: "npm update",
+                desc: "Scans active system code tracks to update safely across package modules to higher stable builds."
+            },
+            {
+                category: "dependencies", isSimple: true,
+                spelled: "<span>N</span>ode <span>p</span>ackage <span>m</span>anager install specific library", cmd: "npm install [package]",
+                desc: "Downloads and adds a single new dependency (like a charting library or animation toolkit) directly to your project."
+            },
+            {
+                category: "dependencies", isSimple: false,
+                spelled: "<span>N</span>ode <span>p</span>ackage <span>m</span>anager remove library", cmd: "npm uninstall [package]",
+                desc: "Safely removes a dependency you no longer need and cleans up your project manifest automatically."
+            },
+            {
+                category: "dependencies", isSimple: true,
+                spelled: "<span>N</span>ode <span>p</span>ackage <span>m</span>anager initialize project", cmd: "npm init",
+                desc: "Scaffolds a fresh package.json for your project—the first step before installing any dependencies."
+            },
+
+            // --- DEV SERVER ---
+            {
+                category: "server", isSimple: true,
+                spelled: "<span>N</span>ode <span>p</span>ackage <span>m</span>anager <span>r</span>un <span>d</span>evelopment server", cmd: "npm run dev",
+                desc: "Launches a local web server so you can view, test, and interact with the interface directly in your browser."
+            },
+            {
+                category: "server", isSimple: false,
+                spelled: "<span>N</span>ode <span>p</span>ackage <span>m</span>anager <span>r</span>un <span>b</span>uild pipeline", cmd: "npm run build",
+                desc: "Transforms and compresses responsive web asset files into production ready HTML/CSS/JS configurations."
+            },
+            {
+                category: "server", isSimple: false,
+                spelled: "<span>N</span>ode <span>p</span>ackage <span>m</span>anager <span>r</span>un locally <span>p</span>review compilation", cmd: "npm run preview",
+                desc: "Spins up a local server hosting your freshly compressed build to double check asset optimization paths before deployment."
+            },
+
+            // --- VERSION CONTROL ---
+            {
+                category: "git", isSimple: true,
+                spelled: "<span>G</span>it <span>s</span>tatus", cmd: "git status",
+                desc: "Audits which layout files, graphics, or code lines have been modified or created since your last save point."
+            },
+            {
+                category: "git", isSimple: true,
+                spelled: "<span>G</span>it <span>a</span>dd all", cmd: "git add .",
+                desc: "Gathers and stages all of your recent changes, preparing them to be officially recorded."
+            },
+            {
+                category: "git", isSimple: true,
+                spelled: "<span>G</span>it <span>c</span>ommit", cmd: "git commit -m \"[msg]\"",
+                desc: "Saves your staged changes into a permanent timestamp on the version timeline—like locking in a named version history inside Figma."
+            },
+            {
+                category: "git", isSimple: true,
+                spelled: "<span>G</span>it <span>p</span>ull", cmd: "git pull",
+                desc: "Grabs and merges the latest design tokens, bug fixes, or component code pushed by the engineering team from the cloud repository."
+            },
+            {
+                category: "git", isSimple: true,
+                spelled: "<span>G</span>it <span>p</span>u<span>s</span>h", cmd: "git push",
+                desc: "Uploads your locally saved commits to the remote team server (e.g., GitHub) so your developers or your AI assistant can read them."
+            },
+            {
+                category: "git", isSimple: false,
+                spelled: "<span>G</span>it log timeline", cmd: "git log --oneline",
+                desc: "Prints a clean, single-line historical list of all past project versions and checkpoint notes."
+            },
+            {
+                category: "git", isSimple: false,
+                spelled: "<span>G</span>it checkout branch branch switching", cmd: "git checkout [branch-name]",
+                desc: "Safely jumps your workspace timeline focus onto alternative feature branches or design iteration experiments."
+            },
+            {
+                category: "git", isSimple: false,
+                spelled: "<span>G</span>it reset changes undo files", cmd: "git reset --hard",
+                desc: "Completely obliterates all unsaved modifications since your last save checkpoint.", isWarning: true, warningMsg: "⚠️ Caution: Instantly rolls back files. All loose edits are permanently lost."
+            },
+            {
+                category: "git", isSimple: true,
+                spelled: "<span>G</span>it <span>c</span>lone repository", cmd: "git clone [url]",
+                desc: "Downloads an entire remote project from GitHub (or any Git server) onto your machine as a local copy."
+            },
+            {
+                category: "git", isSimple: true,
+                spelled: "<span>G</span>it <span>d</span>iff changes", cmd: "git diff",
+                desc: "Shows every line-by-line difference between your current edits and the last committed version—like a redline overlay for code."
+            },
+            {
+                category: "git", isSimple: false,
+                spelled: "<span>G</span>it <span>b</span>ranch list", cmd: "git branch",
+                desc: "Lists all local branches in your repository and highlights which one you are currently working on."
+            },
+            {
+                category: "git", isSimple: false,
+                spelled: "<span>G</span>it <span>m</span>erge branches", cmd: "git merge [branch]",
+                desc: "Pulls changes from another branch into your current one—like merging a design exploration branch back into main."
+            },
+            {
+                category: "git", isSimple: false,
+                spelled: "<span>G</span>it <span>s</span>tash changes", cmd: "git stash",
+                desc: "Temporarily shelves your uncommitted work so you can switch contexts, then reapply it later without losing a thing."
+            },
+            {
+                category: "git", isSimple: true,
+                spelled: "<span>G</span>it <span>i</span>nitialize repository", cmd: "git init",
+                desc: "Turns any folder into a brand new Git repository so you can start tracking versions immediately."
+            },
+
+            // --- SHORTCUTS ---
+            {
+                category: "shortcuts", isSimple: true,
+                spelled: "<span>O</span>pen current location", cmd: "open .",
+                desc: "Automatically brings up your current terminal folder inside the desktop Finder view."
+            },
+            {
+                category: "shortcuts", isSimple: true,
+                spelled: "<span>C</span>ode editor open", cmd: "code .",
+                desc: "Instantly launches the whole project folder inside Visual Studio Code."
+            },
+            {
+                category: "shortcuts", isSimple: true,
+                spelled: "<span>C</span>lear screen", cmd: "clear",
+                desc: "Wipes away all old console logging text to give you a completely clean window workspace."
+            },
+            {
+                category: "shortcuts", isSimple: true,
+                spelled: "<span>C</span>ancel process", cmd: "Ctrl + C",
+                desc: "Forces the terminal to stop whatever it is currently doing—useful for killing a running dev server or stopping an AI routine that is stuck."
+            },
+            {
+                category: "shortcuts", isSimple: false,
+                spelled: "<span>H</span>istory list log records", cmd: "history",
+                desc: "Retrieves a numbered, chronological index listing every terminal command you have previously run on the machine."
+            },
+            {
+                category: "shortcuts", isSimple: true,
+                spelled: "<span>M</span>anual pages", cmd: "man [command]",
+                desc: "Opens the built-in help documentation for any terminal command—your offline reference manual for flags and usage."
+            },
+            {
+                category: "shortcuts", isSimple: false,
+                spelled: "<span>W</span>hich command location", cmd: "which [command]",
+                desc: "Reveals the exact file path of a command's executable so you can confirm it is installed and where it lives."
+            },
+            {
+                category: "shortcuts", isSimple: false,
+                spelled: "<span>P</span>rocess <span>s</span>napshot", cmd: "ps",
+                desc: "Lists every running process in your terminal session—handy for spotting hung servers or runaway tasks."
+            },
+            {
+                category: "shortcuts", isSimple: false,
+                spelled: "<span>K</span>ill process by ID", cmd: "kill [pid]",
+                desc: "Forcefully terminates a stubborn process using its numeric process ID from the ps list."
+            },
+            {
+                category: "shortcuts", isSimple: false,
+                spelled: "<span>C</span>url transfer", cmd: "curl [url]",
+                desc: "Makes HTTP requests from the terminal—great for testing APIs, downloading files, or checking if a server is responding."
+            },
+            {
+                category: "shortcuts", isSimple: true,
+                spelled: "<span>S</span>uper <span>u</span>ser <span>d</span>o", cmd: "sudo [command]",
+                desc: "Runs a command with administrator privileges—required for system-wide installs or editing protected files.", isWarning: true, warningMsg: "⚠️ Caution: Can modify critical system files. Only use when you understand exactly what the command does."
+            }
+        ];
+
+        const outputDiv = document.getElementById('glossaryOutput');
+        const searchInput = document.getElementById('glossarySearch');
+        const viewIndicator = document.getElementById('viewIndicator');
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+        // Clipboard Copy Handler Function
+        function handleCopy(badge, commandText) {
+            // Standardize output to clean strings (stripping example helper enclosures like brackets)
+            let cleanCmd = commandText;
+            if (cleanCmd.includes('[folder-name]')) cleanCmd = cleanCmd.replace('[folder-name]', '');
+            if (cleanCmd.includes('[file-name]')) cleanCmd = cleanCmd.replace('[file-name]', '');
+            if (cleanCmd.includes('[package]')) cleanCmd = cleanCmd.replace('[package]', '');
+            if (cleanCmd.includes('[branch-name]')) cleanCmd = cleanCmd.replace('[branch-name]', '');
+            if (cleanCmd.includes('[msg]')) cleanCmd = cleanCmd.replace('-m "[msg]"', '');
+            if (cleanCmd.includes('[source] [destination]')) cleanCmd = cleanCmd.split(' ')[0];
+            // Strip any remaining bracketed placeholders
+            cleanCmd = cleanCmd.replace(/\[.*?\]/g, '').replace(/\s+/g, ' ').trim();
+
+            
+            cleanCmd = cleanCmd.trim();
+
+            navigator.clipboard.writeText(cleanCmd).then(() => {
+                badge.classList.add('copied');
+                badge.textContent = "copied!";
+                trackRecent(commandText);
+                
+                setTimeout(() => {
+                    badge.classList.remove('copied');
+                    badge.textContent = commandText;
+                }, 800);
+            }).catch(err => {
+                console.error('Failed to copy to clipboard: ', err);
+            });
+        }
+
+        function trackRecent(cmd) {
+            let recent = JSON.parse(localStorage.getItem('recentCommands') || '[]');
+            recent = recent.filter(c => c !== cmd);
+            recent.unshift(cmd);
+            if (recent.length > 5) recent = recent.slice(0, 5);
+            localStorage.setItem('recentCommands', JSON.stringify(recent));
+            renderGlossary(searchInput.value.toLowerCase().trim());
+        }
+
+        function renderGlossary(searchQuery = "") {
+            const isSearching = searchQuery.length > 0;
+            outputDiv.innerHTML = "";
+            
+            if (isSearching) {
+                viewIndicator.textContent = `Searching Global Command Library for "${searchQuery}"`;
+            } else {
+                viewIndicator.textContent = "Showing Simple Core List";
+            }
+
+            // Render recent commands
+            const recent = JSON.parse(localStorage.getItem('recentCommands') || '[]');
+            if (recent.length > 0 && !isSearching) {
+                const recentSection = document.createElement('div');
+                recentSection.className = "glossary-section";
+
+                const recentTitle = document.createElement('h2');
+                recentTitle.className = "section-title";
+                recentTitle.textContent = "Recently Used";
+
+                const recentHr = document.createElement('hr');
+
+                recentSection.appendChild(recentTitle);
+                recentSection.appendChild(recentHr);
+
+                const recentTable = document.createElement('div');
+                recentTable.className = "glossary-table";
+
+                recent.forEach(cmd => {
+                    const item = commandLibrary.find(c => c.cmd === cmd);
+                    if (!item) return;
+
+                    const row = document.createElement('div');
+                    row.className = "glossary-row";
+
+                    const nameCell = document.createElement('div');
+                    nameCell.className = "table-cell cell-name";
+                    const nameDiv = document.createElement('div');
+                    nameDiv.className = "def-name";
+                    nameDiv.innerHTML = item.spelled;
+                    nameCell.appendChild(nameDiv);
+
+                    const cmdCell = document.createElement('div');
+                    cmdCell.className = "table-cell cell-command";
+                    const cmdDiv = document.createElement('div');
+                    cmdDiv.className = "term-spelled";
+                    cmdDiv.textContent = item.cmd;
+                    cmdDiv.title = "Click to copy command";
+                    cmdDiv.addEventListener('click', () => handleCopy(cmdDiv, item.cmd));
+                    cmdCell.appendChild(cmdDiv);
+
+                    const descCell = document.createElement('div');
+                    descCell.className = "table-cell cell-desc";
+                    const descDiv = document.createElement('div');
+                    descDiv.className = "def-desc";
+                    descDiv.textContent = item.desc;
+                    descCell.appendChild(descDiv);
+
+                    row.appendChild(nameCell);
+                    row.appendChild(cmdCell);
+                    row.appendChild(descCell);
+                    recentTable.appendChild(row);
+                });
+
+                recentSection.appendChild(recentTable);
+                outputDiv.appendChild(recentSection);
+            }
+
+            let totalMatches = 0;
+
+            for (const [catKey, catTitle] of Object.entries(categories)) {
+                
+                const matchedItems = commandLibrary.filter(item => {
+                    if (item.category !== catKey) return false;
+                    
+                    if (!isSearching) {
+                        return item.isSimple;
+                    } else {
+                        const rawSpelledClean = item.spelled.replace(/<[^>]*>/g, '').toLowerCase();
+                        const cmdClean = item.cmd.toLowerCase();
+                        const descClean = item.desc.toLowerCase();
+                        
+                        return (rawSpelledClean.includes(searchQuery) || 
+                                cmdClean.includes(searchQuery) || 
+                                descClean.includes(searchQuery));
+                    }
+                });
+
+                if (matchedItems.length > 0) {
+                    totalMatches += matchedItems.length;
+
+                    const sectionWrap = document.createElement('div');
+                    sectionWrap.className = "glossary-section";
+
+                    const titleEl = document.createElement('h2');
+                    titleEl.className = "section-title";
+                    titleEl.textContent = catTitle;
+
+                    const hrEl = document.createElement('hr');
+
+                    sectionWrap.appendChild(titleEl);
+                    sectionWrap.appendChild(hrEl);
+
+                    const tableWrap = document.createElement('div');
+                    tableWrap.className = "glossary-table";
+
+                    matchedItems.forEach(item => {
+                        const row = document.createElement('div');
+                        row.className = "glossary-row";
+
+                        const nameCell = document.createElement('div');
+                        nameCell.className = "table-cell cell-name";
+
+                        const nameDiv = document.createElement('div');
+                        nameDiv.className = "def-name";
+                        nameDiv.innerHTML = item.spelled;
+
+                        nameCell.appendChild(nameDiv);
+
+                        const cmdCell = document.createElement('div');
+                        cmdCell.className = "table-cell cell-command";
+
+                        const cmdDiv = document.createElement('div');
+                        cmdDiv.className = "term-spelled";
+                        cmdDiv.textContent = item.cmd;
+                        cmdDiv.title = "Click to copy command";
+                        cmdDiv.addEventListener('click', () => handleCopy(cmdDiv, item.cmd));
+
+                        cmdCell.appendChild(cmdDiv);
+
+                        const descCell = document.createElement('div');
+                        descCell.className = "table-cell cell-desc";
+
+                        const descDiv = document.createElement('div');
+                        descDiv.className = "def-desc";
+                        descDiv.textContent = item.desc;
+
+                        descCell.appendChild(descDiv);
+
+                        if (item.isWarning) {
+                            const warnSpan = document.createElement('span');
+                            warnSpan.className = "warning-text";
+                            warnSpan.textContent = item.warningMsg;
+                            descCell.appendChild(warnSpan);
+                        }
+
+                        row.appendChild(nameCell);
+                        row.appendChild(cmdCell);
+                        row.appendChild(descCell);
+                        tableWrap.appendChild(row);
+                    });
+
+                    sectionWrap.appendChild(tableWrap);
+                    outputDiv.appendChild(sectionWrap);
+                }
+            }
+
+            if (totalMatches === 0 && isSearching) {
+                noResultsMessage.classList.remove('hidden');
+                askAiSection.classList.remove('hidden');
+            } else {
+                noResultsMessage.classList.add('hidden');
+                askAiSection.classList.add('hidden');
+            }
+        }
+
+        const savedQuery = localStorage.getItem('glossarySearch');
+        if (savedQuery) {
+            searchInput.value = savedQuery;
+        }
+        renderGlossary(savedQuery || '');
+
+        searchInput.addEventListener('focus', function() {
+            this.select();
+        });
+
+        const searchClear = document.getElementById('searchClear');
+
+        function updateClear() {
+            searchClear.classList.toggle('hidden', !searchInput.value);
+        }
+
+        searchInput.addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase().trim();
+            localStorage.setItem('glossarySearch', query);
+            renderGlossary(query);
+            updateClear();
+        });
+
+        searchClear.addEventListener('click', function() {
+            searchInput.value = '';
+            searchInput.focus();
+            localStorage.setItem('glossarySearch', '');
+            renderGlossary('');
+            updateClear();
+        });
+
+        updateClear();
+
+        const askAiInput = document.getElementById('askAiInput');
+        const askAiButton = document.getElementById('askAiButton');
+        const askAiAnswer = document.getElementById('askAiAnswer');
+
+        function renderMarkdown(text) {
+            let html = text
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            // Extract code blocks first, replace inline, then restore
+            const blocks = [];
+            html = html.replace(/```(\w*)\n?([\s\S]*?)```/g, function(m) {
+                blocks.push('<pre><code>' + m.replace(/^```\w*\n?/, '').replace(/```$/, '') + '</code></pre>');
+                return '\x00CODEBLOCK' + (blocks.length - 1) + '\x00';
+            });
+            html = html
+                .replace(/`([^`]+)`/g, '<code>$1</code>')
+                .replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>')
+                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.+?)\*/g, '<em>$1</em>')
+                .replace(/^- (.+)$/gm, '• $1');
+            html = html.split('\n\n').map(b => {
+                const t = b.trim();
+                return t ? '<p>' + t.replace(/\n/g, '<br>') + '</p>' : '';
+            }).join('');
+            html = html.replace(/\x00CODEBLOCK(\d+)\x00/g, function(_, n) { return blocks[+n]; });
+            return html;
+        }
+
+        async function askAi() {
+            const question = askAiInput.value.trim();
+            if (!question) return;
+
+            askAiButton.disabled = true;
+            askAiButton.textContent = "Asking...";
+            askAiAnswer.classList.remove('hidden');
+            askAiAnswer.innerHTML = '<p><em>Thinking...</em></p>';
+
+            try {
+                const res = await fetch('/api/ask', {
+                    method: 'POST',
+                    headers: { 'content-type': 'application/json' },
+                    body: JSON.stringify({ question }),
+                });
+                const data = await res.json();
+                askAiAnswer.innerHTML = renderMarkdown(data.answer || "Sorry, I couldn't find an answer.");
+            } catch {
+                askAiAnswer.innerHTML = '<p>Error connecting to AI. Try again.</p>';
+            }
+
+            askAiAnswer.querySelectorAll('code').forEach(el => {
+                el.title = "Click to copy";
+                el.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const text = this.textContent;
+                    navigator.clipboard.writeText(text).then(() => {
+                        this.classList.add('copied');
+                        this.dataset.orig = this.dataset.orig || text;
+                        this.textContent = "copied!";
+                        setTimeout(() => {
+                            this.classList.remove('copied');
+                            this.textContent = this.dataset.orig;
+                            delete this.dataset.orig;
+                        }, 600);
+                    });
+                });
+            });
+
+            askAiButton.disabled = false;
+            askAiButton.textContent = "Ask";
+        }
+
+        askAiButton.addEventListener('click', askAi);
+        askAiInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') askAi();
+        });
+    </script>
+
+</body>
+</html>
