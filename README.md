@@ -4,6 +4,28 @@ A visual glossary of essential terminal commands and HTML, CSS, and React concep
 
 Learn `pwd`, `ls`, `cd`, `git`, flexbox, props, and more, with an "Ask AI" helper for quick command questions.
 
+## Screenshots
+
+**Home — browse by topic**
+
+![Homepage](docs/homepage.png)
+
+**A topic — plain-English definitions with the real command**
+
+![Terminal topic](docs/terminal.png)
+
+**React concepts mapped to design ideas**
+
+![React topic](docs/react.png)
+
+**"Put it together" — copyable starter code**
+
+![Starter code](docs/starter-code.png)
+
+**Ask AI — when a term isn't in the library**
+
+![Ask AI](docs/ask-ai.png)
+
 ## Stack
 
 - **Cloudflare Workers** (`src/index.ts`) — serves static assets and a small API.
