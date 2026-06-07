@@ -2629,13 +2629,16 @@ export default {                                   // the Worker starts here
         }
 
         // iOS: the keyboard shrinks the *visual* viewport but fixed elements
-        // don't know that — resize the sheet so the title stays on screen.
+        // don't know that. Keep the sheet full-screen white and instead pad
+        // its bottom by the keyboard height, so content compresses above the
+        // keyboard while the background stays white behind it.
         const feedbackSheet = feedbackModal.querySelector('.feedback-modal');
 
         function fitFeedbackSheet() {
             if (feedbackModal.classList.contains('hidden')) return;
             if (!window.visualViewport || window.innerWidth > 768) return;
-            feedbackSheet.style.height = window.visualViewport.height + 'px';
+            const keyboard = Math.max(0, window.innerHeight - window.visualViewport.height);
+            feedbackSheet.style.paddingBottom = keyboard ? (keyboard + 16) + 'px' : '';
             feedbackModal.style.transform = 'translateY(' + window.visualViewport.offsetTop + 'px)';
         }
 
@@ -2652,7 +2655,7 @@ export default {                                   // the Worker starts here
 
         function closeFeedback() {
             feedbackModal.classList.add('hidden');
-            feedbackSheet.style.height = '';
+            feedbackSheet.style.paddingBottom = '';
             feedbackModal.style.transform = '';
         }
 
