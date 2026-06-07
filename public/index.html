@@ -2125,18 +2125,52 @@ export default {                                   // the Worker starts here
         }
 
         function highlightSpelled(spelled, cmd) {
-            const chars = [...cmd.toLowerCase()];
-            let ci = 0;
+            // Pass 1: walk the name, lighting up letters that spell out the
+            // command's letters in order (Print working directory -> pwd).
+            // Drop attribute tokens (href="", src="") so only the tag/command
+            // words count, then strip to letters so brackets don't block it.
+            const target = cmd.toLowerCase()
+                .split(/\s+/)
+                .filter(t => !t.includes('=') && !t.includes('"'))
+                .join('')
+                .replace(/[^a-z]/g, '');
+            let ti = 0;
+            let matched = 0;
             let html = "";
             for (const ch of spelled) {
-                if (ci < chars.length && ch.toLowerCase() === chars[ci]) {
-                    ci++;
+                if (ti < target.length && ch.toLowerCase() === target[ti]) {
+                    ti++;
+                    matched++;
                     html += `<span>${ch}</span>`;
                 } else {
                     html += ch;
                 }
             }
-            return html;
+            // Accept when it's a real signal: 2+ letters, or a short command
+            // fully spelled out (<h1> -> Heading).
+            if (matched >= 2 || (target.length > 0 && matched === target.length)) return html;
+
+            // Pass 2: the term sits mid-command (display: flex) — bold the
+            // longest stretch of the name the command actually contains.
+            const lower = spelled.toLowerCase();
+            const cmdLower = cmd.toLowerCase();
+            let best = { len: 0, start: 0 };
+            for (let i = 0; i < spelled.length; i++) {
+                for (let len = spelled.length - i; len >= 3; len--) {
+                    if (cmdLower.includes(lower.slice(i, i + len))) {
+                        if (len > best.len) best = { len, start: i };
+                        break;
+                    }
+                }
+            }
+            if (best.len >= 3) {
+                return spelled.slice(0, best.start)
+                    + '<span>' + spelled.slice(best.start, best.start + best.len) + '</span>'
+                    + spelled.slice(best.start + best.len);
+            }
+
+            // No letter overlap (pure-symbol commands) — calm gray.
+            return spelled;
         }
 
         const outputDiv = document.getElementById('glossaryOutput');
@@ -2200,14 +2234,7 @@ export default {                                   // the Worker starts here
             nameCell.className = "table-cell cell-name";
             const nameDiv = document.createElement('div');
             nameDiv.className = "def-name";
-            if (item.category === 'libraries' || item.category === 'js' || item.category === 'ts' || item.category === 'css') {
-                // For libraries and JS the name IS the term (the command contains
-                // it: "npm install react", document.querySelector) — sequential
-                // letter-matching just produces noise, so bold the whole name
-                const span = document.createElement('span');
-                span.textContent = item.spelled;
-                nameDiv.appendChild(span);
-            } else if (item.category === 'vscode') {
+            if (item.category === 'vscode') {
                 nameDiv.innerHTML = highlightKeys(item.spelled, item.cmd);
             } else {
                 nameDiv.innerHTML = highlightSpelled(item.spelled, item.cmd);
