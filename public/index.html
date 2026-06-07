@@ -705,10 +705,15 @@
         .feedback-close {
             background: none;
             border: none;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
             color: #b3b3ae;
             cursor: pointer;
-            padding: 0.25rem;
+            width: 2.75rem;
+            height: 2.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: -0.75rem -0.75rem 0 0; /* enlarge hit area without shifting layout */
         }
 
         .feedback-close:hover {
@@ -797,8 +802,17 @@
                 border: none !important;
             }
             .page-header {
-                padding: 0.8rem 1rem;
-                gap: 0.8rem;
+                padding: 0.7rem 1rem 0.8rem 1rem;
+                flex-wrap: wrap;
+                gap: 0.35rem 0.5rem;
+            }
+            /* Row 1: logo left, icons right. Row 2: search full width */
+            #feedbackBtn {
+                margin-left: auto;
+            }
+            .header-inner {
+                order: 4;
+                flex-basis: 100%;
             }
             .header-title {
                 font-size: 1.3rem;
@@ -821,6 +835,13 @@
             }
             .starter-body {
                 padding: 1rem 0 0 0;
+            }
+            /* iOS auto-zooms any focused field under 16px — keep all
+               inputs at 16px on small screens to prevent it */
+            .header-search-wrap input,
+            .ask-ai-input,
+            .feedback-modal textarea {
+                font-size: 16px;
             }
             /* Feedback becomes a fullscreen sheet on small screens */
             .feedback-overlay {
