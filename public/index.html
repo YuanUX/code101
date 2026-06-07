@@ -367,6 +367,10 @@
         /* Home: topic list */
         .topic-list {
             margin-top: 1rem;
+        }
+
+        /* Divider above topics only when Recently Used sits above them */
+        #recentSection:not(:empty) ~ #glossaryOutput .topic-list {
             border-top: 1px solid #1a1a1a;
         }
 
@@ -858,8 +862,8 @@
                 padding: 1rem;
             }
             .feedback-modal textarea {
-                flex: none;
-                min-height: 7.5rem;
+                flex: 1;
+                min-height: 4rem;
                 max-height: 35dvh;
                 resize: none;
             }
@@ -2624,13 +2628,32 @@ export default {                                   // the Worker starts here
             feedbackStars.appendChild(star);
         }
 
+        // iOS: the keyboard shrinks the *visual* viewport but fixed elements
+        // don't know that — resize the sheet so the title stays on screen.
+        const feedbackSheet = feedbackModal.querySelector('.feedback-modal');
+
+        function fitFeedbackSheet() {
+            if (feedbackModal.classList.contains('hidden')) return;
+            if (!window.visualViewport || window.innerWidth > 768) return;
+            feedbackSheet.style.height = window.visualViewport.height + 'px';
+            feedbackModal.style.transform = 'translateY(' + window.visualViewport.offsetTop + 'px)';
+        }
+
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', fitFeedbackSheet);
+            window.visualViewport.addEventListener('scroll', fitFeedbackSheet);
+        }
+
         function openFeedback() {
             feedbackModal.classList.remove('hidden');
+            fitFeedbackSheet();
             feedbackText.focus();
         }
 
         function closeFeedback() {
             feedbackModal.classList.add('hidden');
+            feedbackSheet.style.height = '';
+            feedbackModal.style.transform = '';
         }
 
         feedbackBtn.addEventListener('click', openFeedback);
