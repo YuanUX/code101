@@ -822,6 +822,31 @@
             .starter-body {
                 padding: 1rem 0 0 0;
             }
+            /* Feedback becomes a fullscreen sheet on small screens */
+            .feedback-overlay {
+                padding: 0;
+                align-items: stretch;
+            }
+            .feedback-modal {
+                max-width: none;
+                height: 100dvh;
+                border: none;
+                border-radius: 0;
+                display: flex;
+                flex-direction: column;
+                padding: 1rem;
+            }
+            .feedback-modal textarea {
+                flex: none;
+                min-height: 7.5rem;
+                max-height: 35dvh;
+                resize: none;
+            }
+            .feedback-actions .ask-ai-button {
+                width: 100%;
+                padding: 0.8rem;
+                font-size: 0.95rem;
+            }
         }
     </style>
 </head>
@@ -875,7 +900,7 @@
         </div>
         <p class="feedback-note">Anonymous—no name, no email, just your thoughts.</p>
         <div id="feedbackStars" class="feedback-stars" role="radiogroup" aria-label="Rating"></div>
-        <textarea id="feedbackText" rows="5" maxlength="2000" placeholder="What's missing? What's confusing? What helped?"></textarea>
+        <textarea id="feedbackText" rows="5" maxlength="2000" enterkeyhint="send" placeholder="What's missing? What's confusing? What helped?"></textarea>
         <div class="feedback-actions">
           <button id="feedbackSend" class="ask-ai-button">Send</button>
         </div>
@@ -2590,7 +2615,18 @@ export default {                                   // the Worker starts here
         feedbackBtn.addEventListener('click', openFeedback);
         feedbackClose.addEventListener('click', closeFeedback);
         feedbackModal.addEventListener('click', function(e) {
-            if (e.target === feedbackModal) closeFeedback();
+            if (e.target === feedbackModal) { closeFeedback(); return; }
+            // Tapping empty space inside the sheet dismisses the keyboard
+            if (!e.target.closest('textarea, button')) feedbackText.blur();
+        });
+
+        // The mobile keyboard's Send key submits; Shift+Enter makes a newline
+        feedbackText.addEventListener('keydown', function(e) {
+            if (e.isComposing) return; // IME composition: Enter just confirms the candidate
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                feedbackSend.click();
+            }
         });
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && !feedbackModal.classList.contains('hidden')) closeFeedback();
