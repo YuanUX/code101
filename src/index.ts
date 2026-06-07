@@ -41,6 +41,15 @@ export default {
       });
     }
 
-    return new Response("Not found", { status: 404 });
+    const response = await env.ASSETS.fetch(request);
+    if (response.headers.get("content-type")?.includes("text/html")) {
+      const headers = new Headers(response.headers);
+      headers.set("cache-control", "no-cache, no-store, must-revalidate");
+      return new Response(response.body, {
+        status: response.status,
+        headers,
+      });
+    }
+    return response;
   },
 };

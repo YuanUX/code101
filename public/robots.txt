@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://code101.work/sitemap.xml
