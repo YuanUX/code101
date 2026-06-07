@@ -1208,7 +1208,7 @@ export default {                                   // the Worker starts here
                 desc: "Creates a folder and any missing parent folders along the path in one step—no more nesting errors."
             },
             {
-                category: "files", isSimple: true,
+                category: "files", isSimple: false,
                 spelled: "Touch", cmd: "touch [file-name]",
                 desc: "Creates a new blank file instantly (e.g., a style sheet or Markdown note document)."
             },
@@ -1240,7 +1240,7 @@ export default {                                   // the Worker starts here
             },
             // Read file contents
             {
-                category: "files", isSimple: true,
+                category: "files", isSimple: false,
                 spelled: "Concatenate", cmd: "cat [file]",
                 desc: "Spits out the full contents of a text file directly into your terminal window—like peeking inside a design token file or config sheet."
             },
@@ -1315,7 +1315,7 @@ export default {                                   // the Worker starts here
                 desc: "Pulls and installs all required third-party design systems, animation libraries, or framework code specified for the project."
             },
             {
-                category: "dependencies", isSimple: true,
+                category: "dependencies", isSimple: false,
                 spelled: "Node package manager install", cmd: "npm install [package]",
                 desc: "Downloads and adds a single new dependency (like a charting library or animation toolkit) directly to your project."
             },
@@ -1335,7 +1335,7 @@ export default {                                   // the Worker starts here
                 desc: "Wipes local node folders cleanly to completely rebuild exact production component configurations cleanly."
             },
             {
-                category: "dependencies", isSimple: true,
+                category: "dependencies", isSimple: false,
                 spelled: "Node package execute", cmd: "npx [package]",
                 desc: "Executes a development package template directly from the registry cloud without downloading it permanently to your machine environment (e.g., initializing scaffolding frameworks)."
             },
@@ -2007,7 +2007,7 @@ export default {                                   // the Worker starts here
             },
             // Terminal control
             {
-                category: "shortcuts", isSimple: true,
+                category: "shortcuts", isSimple: false,
                 spelled: "Clear", cmd: "clear",
                 desc: "Wipes away all old console logging text to give you a completely clean window workspace."
             },
