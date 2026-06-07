@@ -401,10 +401,16 @@
         }
 
         .topic-arrow {
-            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
             color: #b3b3ae;
             flex-shrink: 0;
             transition: transform 0.15s ease, color 0.15s ease;
+        }
+
+        .topic-arrow svg {
+            width: 1.2rem;
+            height: 1.2rem;
         }
 
         .topic-row:hover .topic-arrow {
@@ -416,12 +422,19 @@
         .back-btn {
             display: inline-flex;
             align-items: center;
+            gap: 0.4rem;
             background: none;
             border: none;
             padding: 0;
             font-size: 0.9rem;
             color: #888;
             cursor: pointer;
+            transition: color 0.15s ease;
+        }
+
+        .back-btn svg {
+            width: 1rem;
+            height: 1rem;
         }
 
         .back-btn:hover {
@@ -657,7 +670,10 @@
     </header>
 
     <div class="content-wrap">
-    <button id="backBtn" class="back-btn hidden">← All topics</button>
+    <button id="backBtn" class="back-btn hidden">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        All topics
+    </button>
     <div id="recentSection" class="glossary-section"></div>
     <div id="glossaryOutput"></div>
     <div id="basicsFooter" class="basics-footer hidden">Now you know all the basics. <button id="basicsSearchLink" class="basics-search-link">Search</button> to discover more advanced commands.</div>
@@ -1393,7 +1409,7 @@
 
             const arrow = document.createElement('span');
             arrow.className = "topic-arrow";
-            arrow.textContent = "→";
+            arrow.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
 
             row.appendChild(info);
             row.appendChild(arrow);
