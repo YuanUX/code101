@@ -9,6 +9,12 @@
   "ai": {
     "binding": "AI"
   },
+  "kv_namespaces": [
+    {
+      "binding": "FEEDBACK",
+      "id": "d48b3437974b4d52ba8e1371ed00e9a2"
+    }
+  ],
   "observability": {
     "enabled": true
   },
