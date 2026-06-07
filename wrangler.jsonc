@@ -11,5 +11,11 @@
   },
   "observability": {
     "enabled": true
-  }
+  },
+  "routes": [
+    {
+      "pattern": "code101.work",
+      "custom_domain": true
+    }
+  ]
 }

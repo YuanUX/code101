@@ -54,6 +54,14 @@
             padding: 1.2rem 0 1.2rem 2rem;
         }
 
+        .header-title .small-work {
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: #b3b3ae;
+            margin-left: 0.1rem;
+            font-family: inherit;
+        }
+
         .header-inner {
             display: flex;
             align-items: center;
@@ -511,7 +519,7 @@
 <body>
 
     <header class="page-header">
-        <div class="header-title">code101</div>
+        <div class="header-title">code101<span class="small-work">.work</span></div>
         <div class="header-inner">
         <div class="header-search-wrap">
             <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -565,12 +573,12 @@
             },
             {
                 category: "files", isSimple: false,
-                spelled: "<span>L</span>i<span>s</span>t all files", cmd: "ls -la",
+                spelled: "<span>L</span>i<span>s</span>t all", cmd: "ls -la",
                 desc: "A deeper list option that unhides invisible files like design system configurations or project environment settings."
             },
             {
                 category: "files", isSimple: false,
-                spelled: "<span>L</span>i<span>s</span>t files by time modified", cmd: "ls -lt",
+                spelled: "<span>L</span>i<span>s</span>t by time", cmd: "ls -lt",
                 desc: "Sorts and presents folder entries showing your newest layout saves or code revisions at the absolute top."
             },
             {
@@ -580,22 +588,22 @@
             },
             {
                 category: "files", isSimple: true,
-                spelled: "<span>.</span><span>.</span> parent directory", cmd: "cd ..",
+                spelled: "<span>C</span>hange <span>d</span>irectory <span>.</span><span>.</span>", cmd: "cd ..",
                 desc: "Tells the shell to step backward exactly one directory tier to the enclosing folder."
             },
             {
                 category: "files", isSimple: true,
-                spelled: "<span>.</span><span>.</span><span>/</span> parent path traversal", cmd: ".. /",
+                spelled: "<span>.</span><span>.</span><span>/</span>", cmd: ".. /",
                 desc: "Represents a relative pathway jump. Used to target, execute, or copy assets out of the parent folder and into adjacent workspace branches (e.g., cd ../components)."
             },
             {
                 category: "files", isSimple: false,
-                spelled: "<span>.</span><span>.</span><span>.</span> grandparent directory", cmd: "cd ...",
+                spelled: "<span>C</span>hange <span>d</span>irectory <span>.</span><span>.</span><span>.</span>", cmd: "cd ...",
                 desc: "A shortcut environment alias or framework command trick to jump backward two full folders simultaneously."
             },
             {
-                category: "files", isSimple: false,
-                spelled: "<span>C</span>hange <span>d</span>irectory to home directory path", cmd: "cd ~",
+                category: "files", isSimple: true,
+                spelled: "<span>C</span>hange <span>d</span>irectory home", cmd: "cd ~",
                 desc: "Instantly flies you straight out of deep code paths directly back into your machine root User path frame."
             },
             {
@@ -605,89 +613,89 @@
             },
             {
                 category: "files", isSimple: true,
-                spelled: "<span>T</span>ouch new file", cmd: "touch [file-name]",
+                spelled: "<span>T</span><span>o</span><span>u</span><span>c</span><span>h</span>", cmd: "touch [file-name]",
                 desc: "Creates a new blank file instantly (e.g., a style sheet or Markdown note document)."
             },
             {
                 category: "files", isSimple: true,
-                spelled: "<span>R</span>e<span>m</span>ove file", cmd: "rm [file-name]",
+                spelled: "<span>R</span>e<span>m</span>ove", cmd: "rm [file-name]",
                 desc: "Deletes a targeted file instantly.", isWarning: true, warningMsg: "⚠️ Caution: Skips the Trash system. Deletion is immediate and final."
             },
             {
                 category: "files", isSimple: false,
-                spelled: "<span>R</span>e<span>m</span>ove folder forcefully", cmd: "rm -rf [folder-name]",
+                spelled: "<span>R</span>e<span>m</span>ove", cmd: "rm -rf [folder-name]",
                 desc: "Force-deletes an entire folder and everything inside it.", isWarning: true, warningMsg: "⚠️ Extreme Caution: No warning prompt. Cannot be undone."
             },
             {
                 category: "files", isSimple: false,
-                spelled: "<span>C</span>o<span>p</span>y file", cmd: "cp [source] [destination]",
+                spelled: "<span>C</span>o<span>p</span>y", cmd: "cp [source] [destination]",
                 desc: "Duplicates a code file or graphical component asset and ports it into another folder location code line."
             },
             {
                 category: "files", isSimple: false,
-                spelled: "<span>M</span>o<span>v</span>e file", cmd: "mv [source] [destination]",
+                spelled: "<span>M</span>o<span>v</span>e", cmd: "mv [source] [destination]",
                 desc: "Relocates or completely renames an existing directory canvas template asset file position dynamically."
             },
             {
                 category: "files", isSimple: true,
-                spelled: "<span>C</span>oncatenate file", cmd: "cat [file]",
+                spelled: "<span>C</span>onc<span>a</span><span>t</span>enate", cmd: "cat [file]",
                 desc: "Spits out the full contents of a text file directly into your terminal window—like peeking inside a design token file or config sheet."
             },
             {
                 category: "files", isSimple: false,
-                spelled: "<span>G</span>lobal search pattern", cmd: "grep [pattern] [file]",
+                spelled: "<span>G</span>lobal <span>r</span>egular <span>e</span>xpression <span>p</span>rint", cmd: "grep [pattern] [file]",
                 desc: "Scans files line-by-line to find matching text patterns, like hunting down a specific color variable across hundreds of style sheets."
             },
             {
                 category: "files", isSimple: true,
-                spelled: "<span>E</span>cho output", cmd: "echo [text]",
+                spelled: "<span>E</span><span>c</span><span>h</span><span>o</span>", cmd: "echo [text]",
                 desc: "Prints text back to the terminal or pipes it into a file—handy for generating config files or environment variables on the fly."
             },
             {
                 category: "files", isSimple: false,
-                spelled: "<span>H</span>ead of file", cmd: "head [file]",
+                spelled: "<span>H</span><span>e</span><span>a</span><span>d</span>", cmd: "head [file]",
                 desc: "Shows only the very first lines of a file so you can quickly peek at headers, imports, or front matter without opening the whole document."
             },
             {
                 category: "files", isSimple: false,
-                spelled: "<span>T</span>ail of file", cmd: "tail [file]",
+                spelled: "<span>T</span><span>a</span><span>i</span><span>l</span>", cmd: "tail [file]",
                 desc: "Displays the last few lines of a file—perfect for checking recent log entries or the end of a long build output."
             },
             {
                 category: "files", isSimple: false,
-                spelled: "<span>F</span>ind files by name", cmd: "find [path] -name [pattern]",
+                spelled: "<span>F</span><span>i</span><span>n</span><span>d</span>", cmd: "find [path] -name [pattern]",
                 desc: "Recursively searches directories for files matching a name pattern—like locating every SVG icon scattered across your project tree."
             },
             {
                 category: "files", isSimple: true,
-                spelled: "<span>L</span>e<span>ss</span> scroll file", cmd: "less [file]",
+                spelled: "<span>L</span><span>e</span><span>ss</span>", cmd: "less [file]",
                 desc: "Opens a file in a scrollable view so you can browse long documents or logs line by line without flooding the terminal."
             },
             {
                 category: "files", isSimple: true,
-                spelled: "<span>D</span>isk <span>u</span>sage folder size", cmd: "du -sh [folder]",
+                spelled: "<span>D</span>isk <span>u</span>sage", cmd: "du -sh [folder]",
                 desc: "Shows the total size of a folder in human-readable format—handy for checking if your design assets are bloating the project."
             },
             {
                 category: "files", isSimple: false,
-                spelled: "<span>M</span>ake <span>d</span>irectory <span>p</span>arents", cmd: "mkdir -p [path]",
+                spelled: "<span>M</span>ake <span>d</span>irectory <span>p</span>arent", cmd: "mkdir -p [path]",
                 desc: "Creates a folder and any missing parent folders along the path in one step—no more nesting errors."
             },
             {
                 category: "files", isSimple: false,
-                spelled: "<span>C</span>o<span>p</span>y folder recursively", cmd: "cp -r [source] [destination]",
+                spelled: "<span>C</span>o<span>p</span>y", cmd: "cp -r [source] [destination]",
                 desc: "Duplicates an entire folder and all its contents into a new location—like duplicating an entire component library."
             },
             {
                 category: "files", isSimple: false,
-                spelled: "<span>L</span>ink symbolic", cmd: "ln -s [target] [link]",
+                spelled: "<span>L</span>i<span>n</span>k", cmd: "ln -s [target] [link]",
                 desc: "Creates a symbolic link that acts as a shortcut to another file or folder—useful for aliasing shared asset directories."
             },
 
             // --- DEPENDENCIES ---
             {
                 category: "dependencies", isSimple: true,
-                spelled: "<span>B</span>rew install package", cmd: "brew install [package]",
+                spelled: "<span>B</span>rew <span>i</span>nstall", cmd: "brew install [package]",
                 desc: "Downloads and installs system-level software utilities, languages, or background tools directly onto your Mac environment via Homebrew."
             },
             {
@@ -702,54 +710,54 @@
             },
             {
                 category: "dependencies", isSimple: false,
-                spelled: "<span>B</span>rew update recipes", cmd: "brew update",
+                spelled: "<span>B</span>rew <span>u</span>pdate", cmd: "brew update",
                 desc: "Scans the global Homebrew registry database to discover if newer versions of your installed development tools are available."
             },
             {
                 category: "dependencies", isSimple: false,
-                spelled: "<span>B</span>rew upgrade packages", cmd: "brew upgrade",
+                spelled: "<span>B</span>rew <span>u</span>pgrade", cmd: "brew upgrade",
                 desc: "Downloads, compiles, and installs the latest updates for all system-level tools fetched through Homebrew."
             },
             {
                 category: "dependencies", isSimple: false,
-                spelled: "<span>N</span>ode <span>p</span>ackage <span>m</span>anager clean install", cmd: "npm ci",
+                spelled: "<span>N</span>ode <span>p</span>ackage <span>m</span>anager ci", cmd: "npm ci",
                 desc: "Wipes local node folders cleanly to completely rebuild exact production component configurations cleanly."
             },
             {
                 category: "dependencies", isSimple: false,
-                spelled: "<span>N</span>ode <span>p</span>ackage <span>m</span>anager update libraries", cmd: "npm update",
+                spelled: "<span>N</span>ode <span>p</span>ackage <span>m</span>anager update", cmd: "npm update",
                 desc: "Scans active system code tracks to update safely across package modules to higher stable builds."
             },
             {
                 category: "dependencies", isSimple: true,
-                spelled: "<span>N</span>ode <span>p</span>ackage <span>m</span>anager install specific library", cmd: "npm install [package]",
+                spelled: "<span>N</span>ode <span>p</span>ackage <span>m</span>anager install", cmd: "npm install [package]",
                 desc: "Downloads and adds a single new dependency (like a charting library or animation toolkit) directly to your project."
             },
             {
                 category: "dependencies", isSimple: false,
-                spelled: "<span>N</span>ode <span>p</span>ackage <span>m</span>anager remove library", cmd: "npm uninstall [package]",
+                spelled: "<span>N</span>ode <span>p</span>ackage <span>m</span>anager <span>u</span>ninstall", cmd: "npm uninstall [package]",
                 desc: "Safely removes a dependency you no longer need and cleans up your project manifest automatically."
             },
             {
                 category: "dependencies", isSimple: true,
-                spelled: "<span>N</span>ode <span>p</span>ackage <span>m</span>anager initialize project", cmd: "npm init",
+                spelled: "<span>N</span>ode <span>p</span>ackage <span>m</span>anager <span>i</span>nit", cmd: "npm init",
                 desc: "Scaffolds a fresh package.json for your project—the first step before installing any dependencies."
             },
 
             // --- DEV SERVER ---
             {
                 category: "server", isSimple: true,
-                spelled: "<span>N</span>ode <span>p</span>ackage <span>m</span>anager <span>r</span>un <span>d</span>evelopment server", cmd: "npm run dev",
+                spelled: "<span>N</span>ode <span>p</span>ackage <span>m</span>anager <span>r</span>un <span>d</span>ev", cmd: "npm run dev",
                 desc: "Launches a local web server so you can view, test, and interact with the interface directly in your browser."
             },
             {
                 category: "server", isSimple: false,
-                spelled: "<span>N</span>ode <span>p</span>ackage <span>m</span>anager <span>r</span>un <span>b</span>uild pipeline", cmd: "npm run build",
+                spelled: "<span>N</span>ode <span>p</span>ackage <span>m</span>anager <span>r</span>un <span>b</span>uild", cmd: "npm run build",
                 desc: "Transforms and compresses responsive web asset files into production ready HTML/CSS/JS configurations."
             },
             {
                 category: "server", isSimple: false,
-                spelled: "<span>N</span>ode <span>p</span>ackage <span>m</span>anager <span>r</span>un locally <span>p</span>review compilation", cmd: "npm run preview",
+                spelled: "<span>N</span>ode <span>p</span>ackage <span>m</span>anager <span>r</span>un <span>p</span>review", cmd: "npm run preview",
                 desc: "Spins up a local server hosting your freshly compressed build to double check asset optimization paths before deployment."
             },
 
@@ -761,7 +769,7 @@
             },
             {
                 category: "git", isSimple: true,
-                spelled: "<span>G</span>it <span>a</span>dd all", cmd: "git add .",
+                spelled: "<span>G</span>it <span>a</span>dd", cmd: "git add .",
                 desc: "Gathers and stages all of your recent changes, preparing them to be officially recorded."
             },
             {
@@ -775,90 +783,90 @@
                 desc: "Grabs and merges the latest design tokens, bug fixes, or component code pushed by the engineering team from the cloud repository."
             },
             {
-                category: "git", isSimple: true,
-                spelled: "<span>G</span>it <span>p</span>u<span>s</span>h", cmd: "git push",
+                category: "shortcuts", isSimple: true,
+                spelled: "<span>G</span>it <span>p</span>ush", cmd: "git push",
                 desc: "Uploads your locally saved commits to the remote team server (e.g., GitHub) so your developers or your AI assistant can read them."
             },
             {
-                category: "git", isSimple: false,
-                spelled: "<span>G</span>it log timeline", cmd: "git log --oneline",
+                category: "shortcuts", isSimple: false,
+                spelled: "<span>G</span>it <span>l</span>og", cmd: "git log --oneline",
                 desc: "Prints a clean, single-line historical list of all past project versions and checkpoint notes."
             },
             {
-                category: "git", isSimple: false,
-                spelled: "<span>G</span>it checkout branch branch switching", cmd: "git checkout [branch-name]",
+                category: "shortcuts", isSimple: false,
+                spelled: "<span>G</span>it <span>c</span>heckout", cmd: "git checkout [branch-name]",
                 desc: "Safely jumps your workspace timeline focus onto alternative feature branches or design iteration experiments."
             },
             {
-                category: "git", isSimple: false,
-                spelled: "<span>G</span>it reset changes undo files", cmd: "git reset --hard",
+                category: "shortcuts", isSimple: false,
+                spelled: "<span>G</span>it <span>r</span>eset", cmd: "git reset --hard",
                 desc: "Completely obliterates all unsaved modifications since your last save checkpoint.", isWarning: true, warningMsg: "⚠️ Caution: Instantly rolls back files. All loose edits are permanently lost."
             },
             {
-                category: "git", isSimple: true,
-                spelled: "<span>G</span>it <span>c</span>lone repository", cmd: "git clone [url]",
+                category: "shortcuts", isSimple: true,
+                spelled: "<span>G</span>it <span>c</span>lone", cmd: "git clone [url]",
                 desc: "Downloads an entire remote project from GitHub (or any Git server) onto your machine as a local copy."
             },
             {
-                category: "git", isSimple: true,
-                spelled: "<span>G</span>it <span>d</span>iff changes", cmd: "git diff",
+                category: "shortcuts", isSimple: true,
+                spelled: "<span>G</span>it <span>d</span>iff", cmd: "git diff",
                 desc: "Shows every line-by-line difference between your current edits and the last committed version—like a redline overlay for code."
             },
             {
-                category: "git", isSimple: false,
-                spelled: "<span>G</span>it <span>b</span>ranch list", cmd: "git branch",
+                category: "shortcuts", isSimple: false,
+                spelled: "<span>G</span>it <span>b</span>ranch", cmd: "git branch",
                 desc: "Lists all local branches in your repository and highlights which one you are currently working on."
             },
             {
-                category: "git", isSimple: false,
-                spelled: "<span>G</span>it <span>m</span>erge branches", cmd: "git merge [branch]",
+                category: "shortcuts", isSimple: false,
+                spelled: "<span>G</span>it <span>m</span>erge", cmd: "git merge [branch]",
                 desc: "Pulls changes from another branch into your current one—like merging a design exploration branch back into main."
             },
             {
-                category: "git", isSimple: false,
-                spelled: "<span>G</span>it <span>s</span>tash changes", cmd: "git stash",
+                category: "shortcuts", isSimple: false,
+                spelled: "<span>G</span>it <span>s</span>tash", cmd: "git stash",
                 desc: "Temporarily shelves your uncommitted work so you can switch contexts, then reapply it later without losing a thing."
             },
             {
-                category: "git", isSimple: true,
-                spelled: "<span>G</span>it <span>i</span>nitialize repository", cmd: "git init",
+                category: "shortcuts", isSimple: true,
+                spelled: "<span>G</span>it <span>i</span>nit", cmd: "git init",
                 desc: "Turns any folder into a brand new Git repository so you can start tracking versions immediately."
             },
 
             // --- SHORTCUTS ---
             {
                 category: "shortcuts", isSimple: true,
-                spelled: "<span>O</span>pen current location", cmd: "open .",
+                spelled: "<span>O</span><span>p</span><span>e</span><span>n</span>", cmd: "open .",
                 desc: "Automatically brings up your current terminal folder inside the desktop Finder view."
             },
             {
                 category: "shortcuts", isSimple: true,
-                spelled: "<span>C</span>ode editor open", cmd: "code .",
+                spelled: "<span>C</span><span>o</span><span>d</span><span>e</span>", cmd: "code .",
                 desc: "Instantly launches the whole project folder inside Visual Studio Code."
             },
             {
                 category: "shortcuts", isSimple: true,
-                spelled: "<span>C</span>lear screen", cmd: "clear",
+                spelled: "<span>C</span><span>l</span><span>e</span><span>a</span><span>r</span>", cmd: "clear",
                 desc: "Wipes away all old console logging text to give you a completely clean window workspace."
             },
             {
-                category: "shortcuts", isSimple: true,
-                spelled: "<span>C</span>ancel process", cmd: "Ctrl + C",
+                category: "shortcuts", isSimple: false,
+                spelled: "<span>C</span>ancel", cmd: "Ctrl + C",
                 desc: "Forces the terminal to stop whatever it is currently doing—useful for killing a running dev server or stopping an AI routine that is stuck."
             },
             {
                 category: "shortcuts", isSimple: false,
-                spelled: "<span>H</span>istory list log records", cmd: "history",
+                spelled: "<span>H</span>istory", cmd: "history",
                 desc: "Retrieves a numbered, chronological index listing every terminal command you have previously run on the machine."
             },
             {
                 category: "shortcuts", isSimple: true,
-                spelled: "<span>M</span>anual pages", cmd: "man [command]",
+                spelled: "<span>M</span><span>a</span><span>n</span>ual", cmd: "man [command]",
                 desc: "Opens the built-in help documentation for any terminal command—your offline reference manual for flags and usage."
             },
             {
                 category: "shortcuts", isSimple: false,
-                spelled: "<span>W</span>hich command location", cmd: "which [command]",
+                spelled: "<span>W</span>hich", cmd: "which [command]",
                 desc: "Reveals the exact file path of a command's executable so you can confirm it is installed and where it lives."
             },
             {
@@ -868,17 +876,17 @@
             },
             {
                 category: "shortcuts", isSimple: false,
-                spelled: "<span>K</span>ill process by ID", cmd: "kill [pid]",
+                spelled: "<span>K</span><span>i</span><span>l</span><span>l</span>", cmd: "kill [pid]",
                 desc: "Forcefully terminates a stubborn process using its numeric process ID from the ps list."
             },
             {
                 category: "shortcuts", isSimple: false,
-                spelled: "<span>C</span>url transfer", cmd: "curl [url]",
+                spelled: "<span>C</span><span>u</span><span>r</span><span>l</span>", cmd: "curl [url]",
                 desc: "Makes HTTP requests from the terminal—great for testing APIs, downloading files, or checking if a server is responding."
             },
             {
                 category: "shortcuts", isSimple: true,
-                spelled: "<span>S</span>uper <span>u</span>ser <span>d</span>o", cmd: "sudo [command]",
+                spelled: "<span>S</span>uper <span>u</span>ser <span>d</span><span>o</span>", cmd: "sudo [command]",
                 desc: "Runs a command with administrator privileges—required for system-wide installs or editing protected files.", isWarning: true, warningMsg: "⚠️ Caution: Can modify critical system files. Only use when you understand exactly what the command does."
             }
         ];
