@@ -14,10 +14,6 @@ Learn `pwd`, `ls`, `cd`, `git`, flexbox, props, and more, with an "Ask AI" helpe
 
 ![Terminal topic](docs/terminal.png)
 
-**React concepts mapped to design ideas**
-
-![React topic](docs/react.png)
-
 **"Put it together" — copyable starter code**
 
 ![Starter code](docs/starter-code.png)
