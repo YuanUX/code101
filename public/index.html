@@ -67,7 +67,7 @@
         .header-title .small-work {
             font-size: 0.8rem;
             font-weight: 400;
-            color: #b3b3ae;
+            color: #888;
             margin-left: 0.1rem;
             font-family: inherit;
         }
@@ -360,6 +360,29 @@
             font-weight: 700;
         }
 
+        .basics-footer {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #b3b3ae;
+            margin-top: 4rem;
+        }
+
+        .basics-search-link {
+            background: none;
+            border: none;
+            padding: 0;
+            font-size: inherit;
+            font-family: inherit;
+            color: #4a4a45;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            cursor: pointer;
+        }
+
+        .basics-search-link:hover {
+            color: #1a1a1a;
+        }
+
         .no-results {
             text-align: center;
             font-size: 1.1rem;
@@ -565,6 +588,7 @@
     <div class="content-wrap">
     <div id="recentSection" class="glossary-section"></div>
     <div id="glossaryOutput"></div>
+    <div id="basicsFooter" class="basics-footer hidden">Now you know all the basics. <button id="basicsSearchLink" class="basics-search-link">Search</button> to discover more advanced commands.</div>
     <div id="noResultsMessage" class="no-results hidden">No matching command found in the library, but AI is here to help you.</div>
 
     <div id="askAiSection" class="ask-ai-section hidden">
@@ -590,6 +614,7 @@
 
         const commandLibrary = [
             // --- MANIPULATE FILES ---
+            // Orient: where am I, what's here
             {
                 category: "files", isSimple: true,
                 spelled: "Print working directory", cmd: "pwd",
@@ -610,6 +635,7 @@
                 spelled: "List by time", cmd: "ls -lt",
                 desc: "Sorts and presents folder entries showing your newest layout saves or code revisions at the absolute top."
             },
+            // Navigate
             {
                 category: "files", isSimple: true,
                 spelled: "Change directory", cmd: "cd [folder-name]",
@@ -635,15 +661,37 @@
                 spelled: "Change directory home", cmd: "cd ~",
                 desc: "Instantly flies you straight out of deep code paths directly back into your machine root User path frame."
             },
+            // Create
             {
                 category: "files", isSimple: true,
                 spelled: "Make directory", cmd: "mkdir [folder-name]",
                 desc: "Generates a brand new, empty folder inside your current directory."
             },
             {
+                category: "files", isSimple: false,
+                spelled: "Make directory parent", cmd: "mkdir -p [path]",
+                desc: "Creates a folder and any missing parent folders along the path in one step—no more nesting errors."
+            },
+            {
                 category: "files", isSimple: true,
                 spelled: "Touch", cmd: "touch [file-name]",
                 desc: "Creates a new blank file instantly (e.g., a style sheet or Markdown note document)."
+            },
+            // Copy, move, delete
+            {
+                category: "files", isSimple: false,
+                spelled: "Copy", cmd: "cp [source] [destination]",
+                desc: "Duplicates a code file or graphical component asset and ports it into another folder location code line."
+            },
+            {
+                category: "files", isSimple: false,
+                spelled: "Copy", cmd: "cp -r [source] [destination]",
+                desc: "Duplicates an entire folder and all its contents into a new location—like duplicating an entire component library."
+            },
+            {
+                category: "files", isSimple: false,
+                spelled: "Move", cmd: "mv [source] [destination]",
+                desc: "Relocates or completely renames an existing directory canvas template asset file position dynamically."
             },
             {
                 category: "files", isSimple: true,
@@ -655,30 +703,16 @@
                 spelled: "Remove", cmd: "rm -rf [folder-name]",
                 desc: "Force-deletes an entire folder and everything inside it.", isWarning: true, warningMsg: "Extreme Caution: No warning prompt. Cannot be undone."
             },
-            {
-                category: "files", isSimple: false,
-                spelled: "Copy", cmd: "cp [source] [destination]",
-                desc: "Duplicates a code file or graphical component asset and ports it into another folder location code line."
-            },
-            {
-                category: "files", isSimple: false,
-                spelled: "Move", cmd: "mv [source] [destination]",
-                desc: "Relocates or completely renames an existing directory canvas template asset file position dynamically."
-            },
+            // Read file contents
             {
                 category: "files", isSimple: true,
                 spelled: "Concatenate", cmd: "cat [file]",
                 desc: "Spits out the full contents of a text file directly into your terminal window—like peeking inside a design token file or config sheet."
             },
             {
-                category: "files", isSimple: false,
-                spelled: "Global regular expression print", cmd: "grep [pattern] [file]",
-                desc: "Scans files line-by-line to find matching text patterns, like hunting down a specific color variable across hundreds of style sheets."
-            },
-            {
                 category: "files", isSimple: true,
-                spelled: "Echo", cmd: "echo [text]",
-                desc: "Prints text back to the terminal or pipes it into a file—handy for generating config files or environment variables on the fly."
+                spelled: "Less", cmd: "less [file]",
+                desc: "Opens a file in a scrollable view so you can browse long documents or logs line by line without flooding the terminal."
             },
             {
                 category: "files", isSimple: false,
@@ -691,14 +725,20 @@
                 desc: "Displays the last few lines of a file—perfect for checking recent log entries or the end of a long build output."
             },
             {
+                category: "files", isSimple: true,
+                spelled: "Echo", cmd: "echo [text]",
+                desc: "Prints text back to the terminal or pipes it into a file—handy for generating config files or environment variables on the fly."
+            },
+            // Search & measure
+            {
+                category: "files", isSimple: false,
+                spelled: "Global regular expression print", cmd: "grep [pattern] [file]",
+                desc: "Scans files line-by-line to find matching text patterns, like hunting down a specific color variable across hundreds of style sheets."
+            },
+            {
                 category: "files", isSimple: false,
                 spelled: "Find", cmd: "find [path] -name [pattern]",
                 desc: "Recursively searches directories for files matching a name pattern—like locating every SVG icon scattered across your project tree."
-            },
-            {
-                category: "files", isSimple: true,
-                spelled: "Less", cmd: "less [file]",
-                desc: "Opens a file in a scrollable view so you can browse long documents or logs line by line without flooding the terminal."
             },
             {
                 category: "files", isSimple: true,
@@ -707,35 +747,16 @@
             },
             {
                 category: "files", isSimple: false,
-                spelled: "Make directory parent", cmd: "mkdir -p [path]",
-                desc: "Creates a folder and any missing parent folders along the path in one step—no more nesting errors."
-            },
-            {
-                category: "files", isSimple: false,
-                spelled: "Copy", cmd: "cp -r [source] [destination]",
-                desc: "Duplicates an entire folder and all its contents into a new location—like duplicating an entire component library."
-            },
-            {
-                category: "files", isSimple: false,
                 spelled: "Link", cmd: "ln -s [target] [link]",
                 desc: "Creates a symbolic link that acts as a shortcut to another file or folder—useful for aliasing shared asset directories."
             },
 
             // --- DEPENDENCIES ---
+            // System tools via Homebrew
             {
                 category: "dependencies", isSimple: true,
                 spelled: "Brew install", cmd: "brew install [package]",
                 desc: "Downloads and installs system-level software utilities, languages, or background tools directly onto your Mac environment via Homebrew."
-            },
-            {
-                category: "dependencies", isSimple: true,
-                spelled: "Node package manager install", cmd: "npm install",
-                desc: "Pulls and installs all required third-party design systems, animation libraries, or framework code specified for the project."
-            },
-            {
-                category: "dependencies", isSimple: true,
-                spelled: "Node package execute package", cmd: "npx [package]",
-                desc: "Executes a development package template directly from the registry cloud without downloading it permanently to your machine environment (e.g., initializing scaffolding frameworks)."
             },
             {
                 category: "dependencies", isSimple: false,
@@ -747,15 +768,16 @@
                 spelled: "Brew upgrade", cmd: "brew upgrade",
                 desc: "Downloads, compiles, and installs the latest updates for all system-level tools fetched through Homebrew."
             },
+            // Project packages via npm
             {
-                category: "dependencies", isSimple: false,
-                spelled: "Node package manager ci", cmd: "npm ci",
-                desc: "Wipes local node folders cleanly to completely rebuild exact production component configurations cleanly."
+                category: "dependencies", isSimple: true,
+                spelled: "Node package manager init", cmd: "npm init",
+                desc: "Scaffolds a fresh package.json for your project—the first step before installing any dependencies."
             },
             {
-                category: "dependencies", isSimple: false,
-                spelled: "Node package manager update", cmd: "npm update",
-                desc: "Scans active system code tracks to update safely across package modules to higher stable builds."
+                category: "dependencies", isSimple: true,
+                spelled: "Node package manager install", cmd: "npm install",
+                desc: "Pulls and installs all required third-party design systems, animation libraries, or framework code specified for the project."
             },
             {
                 category: "dependencies", isSimple: true,
@@ -768,9 +790,19 @@
                 desc: "Safely removes a dependency you no longer need and cleans up your project manifest automatically."
             },
             {
+                category: "dependencies", isSimple: false,
+                spelled: "Node package manager update", cmd: "npm update",
+                desc: "Scans active system code tracks to update safely across package modules to higher stable builds."
+            },
+            {
+                category: "dependencies", isSimple: false,
+                spelled: "Node package manager ci", cmd: "npm ci",
+                desc: "Wipes local node folders cleanly to completely rebuild exact production component configurations cleanly."
+            },
+            {
                 category: "dependencies", isSimple: true,
-                spelled: "Node package manager init", cmd: "npm init",
-                desc: "Scaffolds a fresh package.json for your project—the first step before installing any dependencies."
+                spelled: "Node package execute package", cmd: "npx [package]",
+                desc: "Executes a development package template directly from the registry cloud without downloading it permanently to your machine environment (e.g., initializing scaffolding frameworks)."
             },
 
             // --- DEV SERVER ---
@@ -791,10 +823,27 @@
             },
 
             // --- VERSION CONTROL ---
+            // Start a repo
+            {
+                category: "git", isSimple: true,
+                spelled: "Git init", cmd: "git init",
+                desc: "Turns any folder into a brand new Git repository so you can start tracking versions immediately."
+            },
+            {
+                category: "git", isSimple: true,
+                spelled: "Git clone", cmd: "git clone [url]",
+                desc: "Downloads an entire remote project from GitHub (or any Git server) onto your machine as a local copy."
+            },
+            // The everyday loop: inspect, stage, commit, sync
             {
                 category: "git", isSimple: true,
                 spelled: "Git status", cmd: "git status",
                 desc: "Audits which layout files, graphics, or code lines have been modified or created since your last save point."
+            },
+            {
+                category: "git", isSimple: true,
+                spelled: "Git diff", cmd: "git diff",
+                desc: "Shows every line-by-line difference between your current edits and the last committed version—like a redline overlay for code."
             },
             {
                 category: "git", isSimple: true,
@@ -808,61 +857,53 @@
             },
             {
                 category: "git", isSimple: true,
-                spelled: "Git pull", cmd: "git pull",
-                desc: "Grabs and merges the latest design tokens, bug fixes, or component code pushed by the engineering team from the cloud repository."
-            },
-            {
-                category: "shortcuts", isSimple: true,
                 spelled: "Git push", cmd: "git push",
                 desc: "Uploads your locally saved commits to the remote team server (e.g., GitHub) so your developers or your AI assistant can read them."
             },
             {
-                category: "shortcuts", isSimple: false,
+                category: "git", isSimple: true,
+                spelled: "Git pull", cmd: "git pull",
+                desc: "Grabs and merges the latest design tokens, bug fixes, or component code pushed by the engineering team from the cloud repository."
+            },
+            {
+                category: "git", isSimple: false,
                 spelled: "Git log", cmd: "git log --oneline",
                 desc: "Prints a clean, single-line historical list of all past project versions and checkpoint notes."
             },
+            // Branching
             {
-                category: "shortcuts", isSimple: false,
-                spelled: "Git checkout", cmd: "git checkout [branch-name]",
-                desc: "Safely jumps your workspace timeline focus onto alternative feature branches or design iteration experiments."
-            },
-            {
-                category: "shortcuts", isSimple: false,
-                spelled: "Git reset", cmd: "git reset --hard",
-                desc: "Completely obliterates all unsaved modifications since your last save checkpoint.", isWarning: true, warningMsg: "Caution: Instantly rolls back files. All loose edits are permanently lost."
-            },
-            {
-                category: "shortcuts", isSimple: true,
-                spelled: "Git clone", cmd: "git clone [url]",
-                desc: "Downloads an entire remote project from GitHub (or any Git server) onto your machine as a local copy."
-            },
-            {
-                category: "shortcuts", isSimple: true,
-                spelled: "Git diff", cmd: "git diff",
-                desc: "Shows every line-by-line difference between your current edits and the last committed version—like a redline overlay for code."
-            },
-            {
-                category: "shortcuts", isSimple: false,
+                category: "git", isSimple: false,
                 spelled: "Git branch", cmd: "git branch",
                 desc: "Lists all local branches in your repository and highlights which one you are currently working on."
             },
             {
-                category: "shortcuts", isSimple: false,
+                category: "git", isSimple: false,
+                spelled: "Git checkout", cmd: "git checkout [branch-name]",
+                desc: "Safely jumps your workspace timeline focus onto alternative feature branches or design iteration experiments."
+            },
+            {
+                category: "git", isSimple: false,
                 spelled: "Git merge", cmd: "git merge [branch]",
                 desc: "Pulls changes from another branch into your current one—like merging a design exploration branch back into main."
             },
             {
-                category: "shortcuts", isSimple: false,
+                category: "git", isSimple: false,
                 spelled: "Git stash", cmd: "git stash",
                 desc: "Temporarily shelves your uncommitted work so you can switch contexts, then reapply it later without losing a thing."
             },
             {
-                category: "shortcuts", isSimple: true,
-                spelled: "Git init", cmd: "git init",
-                desc: "Turns any folder into a brand new Git repository so you can start tracking versions immediately."
+                category: "git", isSimple: false,
+                spelled: "Git reset", cmd: "git reset --hard",
+                desc: "Completely obliterates all unsaved modifications since your last save checkpoint.", isWarning: true, warningMsg: "Caution: Instantly rolls back files. All loose edits are permanently lost."
             },
 
             // --- SHORTCUTS ---
+            // Finder & editor bridges
+            {
+                category: "shortcuts", isSimple: true,
+                spelled: "Drag & drop", cmd: "cd [drag folder here]",
+                desc: "Type cd followed by a space, then drag any folder from Finder straight onto the Terminal window—its full path is pasted for you, no typing required."
+            },
             {
                 category: "shortcuts", isSimple: true,
                 spelled: "Open", cmd: "open .",
@@ -873,6 +914,7 @@
                 spelled: "Code", cmd: "code .",
                 desc: "Instantly launches the whole project folder inside Visual Studio Code."
             },
+            // Terminal control
             {
                 category: "shortcuts", isSimple: true,
                 spelled: "Clear", cmd: "clear",
@@ -888,6 +930,7 @@
                 spelled: "History", cmd: "history",
                 desc: "Retrieves a numbered, chronological index listing every terminal command you have previously run on the machine."
             },
+            // Help & inspection
             {
                 category: "shortcuts", isSimple: true,
                 spelled: "Manual", cmd: "man [command]",
@@ -898,6 +941,7 @@
                 spelled: "Which", cmd: "which [command]",
                 desc: "Reveals the exact file path of a command's executable so you can confirm it is installed and where it lives."
             },
+            // Processes & network
             {
                 category: "shortcuts", isSimple: false,
                 spelled: "Process snapshot", cmd: "ps",
@@ -939,6 +983,9 @@
         const recentSection = document.getElementById('recentSection');
         const searchInput = document.getElementById('glossarySearch');
         const noResultsMessage = document.getElementById('noResultsMessage');
+        const basicsFooter = document.getElementById('basicsFooter');
+
+        document.getElementById('basicsSearchLink').addEventListener('click', () => searchInput.focus());
 
         // Clipboard Copy Handler Function
         function handleCopy(badge, commandText) {
@@ -1102,6 +1149,8 @@
                     outputDiv.appendChild(sectionWrap);
                 }
             }
+
+            basicsFooter.classList.toggle('hidden', isSearching);
 
             if (totalMatches === 0 && isSearching) {
                 noResultsMessage.classList.remove('hidden');
